@@ -1,0 +1,19 @@
+#![deny(bare_trait_objects)]
+
+#[macro_use]
+extern crate serde_derive;
+extern crate serde;
+extern crate bincode;
+
+pub mod ser;
+
+#[derive(Serialize, Deserialize, Clone)]
+pub struct Player {
+	pub x: u64,
+	pub y: u64
+}
+
+#[derive(Serialize, Deserialize, Clone)]
+pub struct World {
+	pub player: Player
+}
