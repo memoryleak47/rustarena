@@ -15,5 +15,5 @@ pub struct Player {
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct World {
-	pub player: Player
+	pub players: [Player; 2],
 }

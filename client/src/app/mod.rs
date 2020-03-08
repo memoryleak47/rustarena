@@ -12,7 +12,7 @@ pub struct App {
 impl App {
 	pub fn new() -> App {
 		let world = World {
-			player: Player { x: 50, y: 20 }
+			players: [Player { x: 50, y: 20 }, Player { x: 500, y: 20 }]
 		};
 
 		App {
