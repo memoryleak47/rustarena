@@ -5,7 +5,8 @@ extern crate serde_derive;
 extern crate serde;
 extern crate bincode;
 
-pub mod ser;
+pub mod packet;
+pub mod net;
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Player {

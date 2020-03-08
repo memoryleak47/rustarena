@@ -1,7 +1,10 @@
 mod app;
+mod cli;
+
 use app::App;
 
 fn main() {
-	let mut a = App::new();
-	a.run();
+	let ip = cli::get_ip();
+	let mut app = App::connect(&ip);
+	app.run();
 }

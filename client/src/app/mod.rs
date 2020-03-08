@@ -1,26 +1,19 @@
+mod connect;
 mod render;
 
-use sfml::window::{Style, VideoMode, Event, Key};
+use sfml::window::{Event, Key};
 use sfml::graphics::{RenderWindow, RenderTarget, Color};
-use rustarena_lib::{World, Player};
+
+use rustarena_lib::World;
+use rustarena_lib::net::Stream;
 
 pub struct App {
 	window: RenderWindow,
 	world: World,
+	stream: Stream,
 }
 
 impl App {
-	pub fn new() -> App {
-		let world = World {
-			players: [Player { x: 50, y: 20 }, Player { x: 500, y: 20 }]
-		};
-
-		App {
-			world,
-			window: RenderWindow::new(VideoMode::fullscreen_modes()[0], "Rustarena client", Style::FULLSCREEN | Style::CLOSE, &Default::default()),
-		}
-	}
-
 	fn tick(&mut self) {} // TODO
 
 	pub fn run(&mut self) {
