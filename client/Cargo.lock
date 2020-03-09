@@ -95,6 +95,7 @@ dependencies = [
  "bincode",
  "serde",
  "serde_derive",
+ "sfml",
 ]
 
 [[package]]

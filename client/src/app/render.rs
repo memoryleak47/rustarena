@@ -5,7 +5,7 @@ use sfml::graphics::{RenderTarget, RectangleShape, Shape, Color, Transformable};
 
 impl App {
 	pub fn render(&mut self) {
-		for p in self.world.players.iter() {
+		for p in self.state.w.players.iter() {
 			let mut s = RectangleShape::new();
 			let v = Vector2f::new(p.x as f32, p.y as f32);
 			s.set_position(v);

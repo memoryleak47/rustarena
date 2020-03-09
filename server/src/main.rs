@@ -1,5 +1,6 @@
-use rustarena_lib::packet::SCPacket;
+use rustarena_lib::packet::{CSPacket, SCPacket};
 use rustarena_lib::net::Listener;
+use rustarena_lib::state::State;
 
 fn main() {
 	let mut listener = Listener::bind("0.0.0.0:4243");
@@ -7,10 +8,26 @@ fn main() {
 		listener.accept_blocking(),
 		listener.accept_blocking()
 	];
-	for x in v.iter_mut() {
-		x.send(SCPacket::Start);
+	let mut state = State::new();
+	for (i, x) in v.iter_mut().enumerate() {
+		x.send(SCPacket::Start { state: state.clone(), player_id: i as usize });
 	}
 	loop {
-		// TODO main-loop
+		let mut changed = false;
+		for i in 0..2 {
+			match v[i].receive_nonblocking() {
+				Some(CSPacket::InputStateUpdate(is)) => {
+					state.input_states[i] = is;
+					changed = true;
+				}
+				None => {},
+			}
+		}
+		if changed {
+			for i in 0..2 {
+				v[i].send(SCPacket::StateUpdate(state.clone()));
+			}
+		}
+		state.tick();
 	}
 }
