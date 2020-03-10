@@ -40,8 +40,8 @@ impl InputState {
 
 	pub fn diry(&self) -> i64 {
 		let mut r = 0;
-		if self.is_pressed(Key::D) { r += 1; }
-		if self.is_pressed(Key::S) { r -= 1; }
+		if self.is_pressed(Key::S) { r += 1; }
+		if self.is_pressed(Key::W) { r -= 1; }
 		r
 	}
 }
