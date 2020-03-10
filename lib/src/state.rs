@@ -17,8 +17,5 @@ impl State {
 			self.w.players[i].x += self.input_states[i].dirx();
 			self.w.players[i].y += self.input_states[i].diry();
 		}
-
-		dbg!(self.w.players[0].x);
-		dbg!(self.w.players[0].y);
 	}
 }
