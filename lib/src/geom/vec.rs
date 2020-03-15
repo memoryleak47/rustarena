@@ -1,6 +1,5 @@
 use std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Div, DivAssign};
 use std::fmt::{Display, Debug, Error, Formatter};
-use std::convert::From;
 
 use crate::WORLD_SIZE;
 
