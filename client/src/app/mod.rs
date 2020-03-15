@@ -5,12 +5,12 @@ mod render;
 use sfml::window::{Event, Key};
 use sfml::graphics::{RenderWindow, RenderTarget, Color};
 
-use rustarena_lib::state::State;
+use rustarena_lib::world::World;
 use rustarena_lib::net::Stream;
 
 pub struct App {
 	window: RenderWindow,
-	state: State,
+	world: World,
 	player_id: usize,
 	stream: Stream,
 }

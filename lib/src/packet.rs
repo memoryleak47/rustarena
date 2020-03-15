@@ -1,13 +1,13 @@
 use serde::{Serialize, de::DeserializeOwned};
 
 use crate::input::InputState;
-use crate::state::State;
+use crate::world::World;
 
 // Server -> Client Packet
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub enum SCPacket {
-	Start { state: State, player_id: usize },
-	StateUpdate(State),
+	Start { world: World, player_id: usize },
+	WorldUpdate(World),
 }
 
 // Client -> Server Packet

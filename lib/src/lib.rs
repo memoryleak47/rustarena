@@ -7,6 +7,5 @@ extern crate bincode;
 
 pub mod input;
 pub mod world;
-pub mod state;
 pub mod packet;
 pub mod net;

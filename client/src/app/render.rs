@@ -14,7 +14,7 @@ impl App {
 	}
 
 	pub fn render(&mut self) {
-		let pl = self.state.w.players.clone(); // TODO fix clone
+		let pl = self.world.players.clone(); // TODO fix clone
 
 		// player bodies
 		for p in pl.iter() {

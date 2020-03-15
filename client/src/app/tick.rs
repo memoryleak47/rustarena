@@ -6,15 +6,16 @@ use crate::app::App;
 impl App {
 	pub fn tick(&mut self) {
 		let new_is = InputState::build_from_keyboard();
-		if new_is != self.state.input_states[self.player_id] {
-			self.stream.send(CSPacket::InputStateUpdate(new_is.clone()));
-			self.state.input_states[self.player_id] = new_is;
+		let app_is = &mut self.world.players[self.player_id].input_state;
+		if new_is != *app_is {
+			*app_is = new_is;
+			self.stream.send(CSPacket::InputStateUpdate(app_is.clone()));
 		}
 		match self.stream.receive_nonblocking::<SCPacket>() {
 			Some(SCPacket::Start { .. }) => { panic!("got start packet while in game!"); }
-			Some(SCPacket::StateUpdate(x)) => { self.state = x; }
+			Some(SCPacket::WorldUpdate(w)) => { self.world = w; }
 			None => {},
 		}
-		self.state.tick();
+		self.world.tick();
 	}
 }

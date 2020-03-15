@@ -1,6 +1,6 @@
 use rustarena_lib::packet::{CSPacket, SCPacket};
 use rustarena_lib::net::Listener;
-use rustarena_lib::state::State;
+use rustarena_lib::world::World;
 
 fn main() {
 	let mut listener = Listener::bind("0.0.0.0:4243");
@@ -8,9 +8,9 @@ fn main() {
 		listener.accept_blocking(),
 		listener.accept_blocking()
 	];
-	let mut state = State::new();
+	let mut world = World::new();
 	for (i, x) in v.iter_mut().enumerate() {
-		x.send(SCPacket::Start { state: state.clone(), player_id: i as usize });
+		x.send(SCPacket::Start { world: world.clone(), player_id: i as usize });
 	}
 	loop {
 		let mut changed = false;
@@ -18,7 +18,7 @@ fn main() {
 			#[allow(clippy::single_match)]
 			match l.receive_nonblocking() {
 				Some(CSPacket::InputStateUpdate(is)) => {
-					state.input_states[i] = is;
+					world.players[i].input_state = is;
 					changed = true;
 				}
 				None => {},
@@ -26,10 +26,10 @@ fn main() {
 		}
 		if changed {
 			for l in v.iter_mut() {
-				l.send(SCPacket::StateUpdate(state.clone()));
+				l.send(SCPacket::WorldUpdate(world.clone()));
 			}
 		}
-		state.tick();
+		world.tick();
 
 		std::thread::sleep(std::time::Duration::from_millis(10));
 	}

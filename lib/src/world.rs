@@ -1,8 +1,11 @@
+use crate::input::{InputState, Key};
+
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Player {
 	pub x: i64,
 	pub y: i64,
 	pub health: u32,
+	pub input_state: InputState,
 }
 
 impl Player {
@@ -12,6 +15,7 @@ impl Player {
 			x: 0,
 			y: 0,
 			health: 100,
+			input_state: InputState::new(),
 		}
 	}
 }
@@ -28,4 +32,16 @@ impl World {
 			players: [Player::new(), Player::new()],
 		}
 	}
+
+	pub fn tick(&mut self) {
+		for p in &mut self.players[..] {
+			p.x += p.input_state.dirx();
+			p.y += p.input_state.diry();
+			if p.input_state.is_pressed(Key::Q) {
+				p.x = 200;
+				p.y = 200;
+			}
+		}
+	}
+
 }
