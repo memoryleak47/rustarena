@@ -19,7 +19,7 @@ impl Player {
 	#[allow(clippy::new_without_default)]
 	pub fn new() -> Player {
 		Player {
-			pos: Vec2f::default(),
+			pos: Vec2f::new(0.3, 0.3),
 			health: 100,
 			input_state: InputState::new(),
 			q_skill: None,
@@ -29,20 +29,30 @@ impl Player {
 
 impl World {
 	pub fn tick_player(&mut self, id: usize) {
-		let p = &mut self.players[id];
+		let [p0, p1] = &mut self.players;
 
-		p.pos += p.input_state.direction() * 0.01;
+		let (me, enemy) = if id == 0 {
+			(p0, p1)
+		} else {
+			(p1, p0)
+		};
 
-		if p.input_state.is_pressed(Key::Q) && p.q_skill.is_none() {
-			p.q_skill = Some(Bullet::spawn(p.pos, p.input_state.direction()));
+		me.pos += me.input_state.direction() * 0.01;
+
+		if me.input_state.is_pressed(Key::Q) && me.q_skill.is_none() {
+			me.q_skill = Some(Bullet::spawn(me.pos, me.input_state.direction()));
 		}
 
-		if let Some(ref mut b) = p.q_skill {
+		if let Some(ref mut b) = me.q_skill {
 			b.pos += b.direction * 0.02;
-			if !b.pos.in_world() { p.q_skill = None; }
+			if !b.pos.in_world() { me.q_skill = None; }
+			else if b.collide(enemy) {
+				me.q_skill = None;
+				enemy.health -= 10;
+			}
 		}
 
-		p.pos = p.pos.crop_world();
+		me.pos = me.pos.crop_world();
 	}
 }
 
