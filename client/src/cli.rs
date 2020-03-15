@@ -8,18 +8,15 @@ pub struct Config {
 
 impl Config {
 	pub fn load() -> Config {
-		let mut args = env::args().skip(1);
 		let mut c = Config::default();
 
-		while let Some(x) = args.next() {
+		for x in env::args().skip(1) {
 			if &x == "--bot" {
 				c.bot = true;
+			} else if c.ip.is_empty() {
+				c.ip = x;
 			} else {
-				if c.ip.is_empty() {
-					c.ip = x;
-				} else {
-					panic!("too many command line arguments");
-				}
+				panic!("too many command line arguments");
 			}
 		}
 
