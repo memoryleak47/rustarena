@@ -1,4 +1,4 @@
-use crate::vec::Vec2f;
+use crate::geom::{Vec2f, Circle};
 use crate::input::{InputState, Key};
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -6,6 +6,11 @@ pub struct Player {
 	pub pos: Vec2f,
 	pub health: u32,
 	pub input_state: InputState,
+}
+
+impl Circle for Player {
+	fn center(&self) -> Vec2f { self.pos }
+	fn radius(&self) -> f32 { 20. }
 }
 
 impl Player {

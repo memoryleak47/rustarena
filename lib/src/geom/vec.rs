@@ -174,8 +174,20 @@ impl<T: Debug> Debug for Vec2t<T> {
 }
 
 impl Vec2f {
+	pub fn distance(self, other: Vec2f) -> f32 {
+		(self - other).magnitude()
+	}
+
+	pub fn distance_sqr(self, other: Vec2f) -> f32 {
+		(self - other).magnitude_sqr()
+	}
+
 	pub fn magnitude(self) -> f32 {
-		(self.x + self.y).sqrt()
+		(self.magnitude_sqr()).sqrt()
+	}
+
+	pub fn magnitude_sqr(self) -> f32 {
+		self.x * self.x + self.y * self.y
 	}
 }
 

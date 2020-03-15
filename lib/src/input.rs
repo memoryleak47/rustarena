@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-use crate::vec::Vec2f;
+use crate::geom::Vec2f;
 
 #[derive(Serialize, Deserialize, Clone, Copy, PartialEq, Eq, Hash, Debug)]
 pub enum Key {
