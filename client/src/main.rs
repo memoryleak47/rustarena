@@ -1,10 +1,16 @@
-mod app;
 mod cli;
+mod app;
+mod bot;
 
+use cli::Config;
 use app::App;
 
 fn main() {
-	let ip = cli::get_ip();
-	let mut app = App::connect(&ip);
-	app.run();
+	let config = Config::load();
+	if config.bot {
+		bot::run(&config.ip);
+	} else {
+		let mut app = App::connect(&config.ip);
+		app.run();
+	}
 }

@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-#[derive(Serialize, Deserialize, Clone, Copy, PartialEq, Eq, Hash)]
+#[derive(Serialize, Deserialize, Clone, Copy, PartialEq, Eq, Hash, Debug)]
 pub enum Key {
 	W, A, S, D,
 	Q,
@@ -8,7 +8,7 @@ pub enum Key {
 
 const ALL_KEYS: [Key; 5] = [Key::W, Key::A, Key::S, Key::D, Key::Q];
 
-#[derive(Serialize, Deserialize, Clone, PartialEq, Eq)]
+#[derive(Serialize, Deserialize, Clone, PartialEq, Eq, Debug)]
 pub struct InputState {
 	set: HashSet<Key>,
 }

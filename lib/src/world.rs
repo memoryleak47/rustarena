@@ -1,10 +1,10 @@
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Player {
 	pub x: i64,
 	pub y: i64
 }
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct World {
 	pub players: [Player; 2],
 }

@@ -1,7 +1,7 @@
 use crate::input::InputState;
 use crate::world::World;
 
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct State {
 	pub w: World,
 	pub input_states: [InputState; 2]
