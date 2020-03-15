@@ -12,7 +12,7 @@ pub struct Player {
 
 impl Circle for Player {
 	fn center(&self) -> Vec2f { self.pos }
-	fn radius(&self) -> f32 { 20. }
+	fn radius(&self) -> f32 { 0.05 }
 }
 
 impl Player {
@@ -31,14 +31,14 @@ impl World {
 	pub fn tick_player(&mut self, id: usize) {
 		let p = &mut self.players[id];
 
-		p.pos += p.input_state.direction();
+		p.pos += p.input_state.direction() * 0.01;
 
 		if p.input_state.is_pressed(Key::Q) && p.q_skill.is_none() {
 			p.q_skill = Some(Bullet::spawn(p.pos, p.input_state.direction()));
 		}
 
 		if let Some(ref mut b) = p.q_skill {
-			b.pos += b.direction;
+			b.pos += b.direction * 0.02;
 			if !b.pos.in_world() { p.q_skill = None; }
 		}
 
@@ -54,7 +54,7 @@ pub struct Bullet {
 
 impl Circle for Bullet {
 	fn center(&self) -> Vec2f { self.pos }
-	fn radius(&self) -> f32 { 15. }
+	fn radius(&self) -> f32 { 0.02 }
 }
 
 impl Bullet {

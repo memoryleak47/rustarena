@@ -173,6 +173,8 @@ impl<T: Debug> Debug for Vec2t<T> {
 	}
 }
 
+use crate::WORLD_SIZE;
+
 impl Vec2f {
 	pub fn distance(self, other: Vec2f) -> f32 {
 		(self - other).magnitude()
@@ -191,18 +193,18 @@ impl Vec2f {
 	}
 
 	pub fn in_world(self) -> bool {
-		(0. <= self.x) && (self.x <= 100.) &&
-		(0. <= self.y) && (self.y <= 100.)
+		(0. <= self.x) && (self.x <= WORLD_SIZE.x) &&
+		(0. <= self.y) && (self.y <= WORLD_SIZE.y)
 	}
 
 	pub fn crop_world(self) -> Vec2f {
 		let mut x = self.x;
 		if x < 0. { x = 0.; }
-		else if x > 100. { x = 100.; }
+		else if x > WORLD_SIZE.x { x = WORLD_SIZE.x; }
 
 		let mut y = self.y;
 		if y < 0. { y = 0.; }
-		else if y > 100. { y = 100.; }
+		else if y > WORLD_SIZE.y { y = WORLD_SIZE.y; }
 
 		Vec2f::new(x, y)
 	}

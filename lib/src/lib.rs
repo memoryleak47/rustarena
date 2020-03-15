@@ -6,6 +6,8 @@ extern crate serde;
 extern crate bincode;
 
 pub mod geom;
+mod global;
+pub use global::*;
 pub mod input;
 pub mod world;
 pub mod packet;

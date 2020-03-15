@@ -23,7 +23,7 @@ impl App {
 
 		// health bars
 		for p in pl.iter() {
-			self.window.draw_rect(p.center() - Vec2f::new(0., 12.), (p.health as f32 * 2. / 5., 2.), Color::rgb(244, 0, 0));
+			self.window.draw_rect(p.center() - Vec2f::new(0., p.radius() * 1.2), (p.health as f32 / 100. * 2. * p.radius(), 0.004), Color::rgb(244, 0, 0));
 		}
 	}
 }
