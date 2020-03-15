@@ -14,8 +14,9 @@ fn main() {
 	}
 	loop {
 		let mut changed = false;
-		for i in 0..2 {
-			match v[i].receive_nonblocking() {
+		for (i, l) in v.iter_mut().enumerate() {
+			#[allow(clippy::single_match)]
+			match l.receive_nonblocking() {
 				Some(CSPacket::InputStateUpdate(is)) => {
 					state.input_states[i] = is;
 					changed = true;
@@ -24,8 +25,8 @@ fn main() {
 			}
 		}
 		if changed {
-			for i in 0..2 {
-				v[i].send(SCPacket::StateUpdate(state.clone()));
+			for l in v.iter_mut() {
+				l.send(SCPacket::StateUpdate(state.clone()));
 			}
 		}
 		state.tick();

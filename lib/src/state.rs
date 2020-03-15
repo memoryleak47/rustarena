@@ -8,6 +8,7 @@ pub struct State {
 }
 
 impl State {
+	#[allow(clippy::new_without_default)]
 	pub fn new() -> State {
 		State { w: World::new(), input_states: [InputState::new(), InputState::new()] }
 	}

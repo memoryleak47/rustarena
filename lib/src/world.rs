@@ -10,6 +10,7 @@ pub struct World {
 }
 
 impl World {
+	#[allow(clippy::new_without_default)]
 	pub fn new() -> World {
 		World {
 			players: [Player { x: 50, y: 20 }, Player { x: 500, y: 20 }]

@@ -3,9 +3,10 @@ use std::collections::HashSet;
 #[derive(Serialize, Deserialize, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Key {
 	W, A, S, D,
+	Q,
 }
 
-const ALL_KEYS: [Key; 4] = [Key::W, Key::A, Key::S, Key::D];
+const ALL_KEYS: [Key; 5] = [Key::W, Key::A, Key::S, Key::D, Key::Q];
 
 #[derive(Serialize, Deserialize, Clone, PartialEq, Eq)]
 pub struct InputState {
@@ -13,6 +14,7 @@ pub struct InputState {
 }
 
 impl InputState {
+	#[allow(clippy::new_without_default)]
 	pub fn new() -> InputState {
 		InputState { set: HashSet::new() }
 	}
@@ -47,12 +49,13 @@ impl InputState {
 }
 
 impl Key {
-	fn to_sfml_key(&self) -> sfml::window::Key {
+	fn to_sfml_key(self) -> sfml::window::Key {
 		match self {
 			Key::W => sfml::window::Key::W,
 			Key::A => sfml::window::Key::A,
 			Key::S => sfml::window::Key::S,
 			Key::D => sfml::window::Key::D,
+			Key::Q => sfml::window::Key::Q,
 		}
 	}
 }
