@@ -1,5 +1,7 @@
 use std::collections::HashSet;
 
+use crate::vec::Vec2f;
+
 #[derive(Serialize, Deserialize, Clone, Copy, PartialEq, Eq, Hash, Debug)]
 pub enum Key {
 	W, A, S, D,
@@ -33,18 +35,10 @@ impl InputState {
 		self.set.contains(&k)
 	}
 
-	pub fn dirx(&self) -> i64 {
-		let mut r = 0;
-		if self.is_pressed(Key::D) { r += 1; }
-		if self.is_pressed(Key::A) { r -= 1; }
-		r
-	}
-
-	pub fn diry(&self) -> i64 {
-		let mut r = 0;
-		if self.is_pressed(Key::S) { r += 1; }
-		if self.is_pressed(Key::W) { r -= 1; }
-		r
+	pub fn direction(&self) -> Vec2f {
+		let x = self.is_pressed(Key::D) as i32 - self.is_pressed(Key::A) as i32;
+		let y = self.is_pressed(Key::S) as i32 - self.is_pressed(Key::W) as i32;
+		Vec2f::new(x as f32, y as f32)
 	}
 }
 

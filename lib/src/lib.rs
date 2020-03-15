@@ -5,6 +5,7 @@ extern crate serde_derive;
 extern crate serde;
 extern crate bincode;
 
+pub mod vec;
 pub mod input;
 pub mod world;
 pub mod packet;

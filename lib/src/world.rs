@@ -1,9 +1,9 @@
+use crate::vec::Vec2f;
 use crate::input::{InputState, Key};
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Player {
-	pub x: i64,
-	pub y: i64,
+	pub pos: Vec2f,
 	pub health: u32,
 	pub input_state: InputState,
 }
@@ -12,8 +12,7 @@ impl Player {
 	#[allow(clippy::new_without_default)]
 	fn new() -> Player {
 		Player {
-			x: 0,
-			y: 0,
+			pos: Vec2f::default(),
 			health: 100,
 			input_state: InputState::new(),
 		}
@@ -35,11 +34,9 @@ impl World {
 
 	pub fn tick(&mut self) {
 		for p in &mut self.players[..] {
-			p.x += p.input_state.dirx();
-			p.y += p.input_state.diry();
+			p.pos += p.input_state.direction();
 			if p.input_state.is_pressed(Key::Q) {
-				p.x = 200;
-				p.y = 200;
+				p.pos = Vec2f::new(200., 200.);
 			}
 		}
 	}
