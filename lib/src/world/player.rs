@@ -32,6 +32,7 @@ impl World {
 		let p = &mut self.players[id];
 
 		p.pos += p.input_state.direction();
+
 		if p.input_state.is_pressed(Key::Q) && p.q_skill.is_none() {
 			p.q_skill = Some(Bullet::spawn(p.pos, p.input_state.direction()));
 		}
@@ -40,6 +41,8 @@ impl World {
 			b.pos += b.direction;
 			if !b.pos.in_world() { p.q_skill = None; }
 		}
+
+		p.pos = p.pos.crop_world();
 	}
 }
 
