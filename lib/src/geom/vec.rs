@@ -189,6 +189,23 @@ impl Vec2f {
 	pub fn magnitude_sqr(self) -> f32 {
 		self.x * self.x + self.y * self.y
 	}
+
+	pub fn in_world(self) -> bool {
+		(0. <= self.x) && (self.x <= 100.) &&
+		(0. <= self.y) && (self.y <= 100.)
+	}
+
+	pub fn crop_world(self) -> Vec2f {
+		let mut x = self.x;
+		if x < 0. { x = 0.; }
+		else if x > 100. { x = 100.; }
+
+		let mut y = self.y;
+		if y < 0. { y = 0.; }
+		else if y > 100. { y = 100.; }
+
+		Vec2f::new(x, y)
+	}
 }
 
 impl<T> From<(T, T)> for Vec2t<T> {

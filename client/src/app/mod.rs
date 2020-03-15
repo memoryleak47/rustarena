@@ -1,5 +1,6 @@
 mod connect;
 mod tick;
+mod window;
 mod render;
 
 use sfml::window::{Event, Key};

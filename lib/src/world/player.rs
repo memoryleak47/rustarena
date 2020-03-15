@@ -38,7 +38,7 @@ impl World {
 
 		if let Some(ref mut b) = p.q_skill {
 			b.pos += b.direction;
-			if b.pos.magnitude() > 100. { p.q_skill = None; }
+			if !b.pos.in_world() { p.q_skill = None; }
 		}
 	}
 }
