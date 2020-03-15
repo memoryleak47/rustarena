@@ -1,4 +1,4 @@
-use crate::input::InputState;
+use crate::input::{InputState, Key};
 use crate::world::World;
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
@@ -17,6 +17,10 @@ impl State {
 		for i in 0..2 {
 			self.w.players[i].x += self.input_states[i].dirx();
 			self.w.players[i].y += self.input_states[i].diry();
+			if self.input_states[i].is_pressed(Key::Q) {
+				self.w.players[i].x = 200;
+				self.w.players[i].y = 200;
+			}
 		}
 	}
 }
