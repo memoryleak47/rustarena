@@ -33,6 +33,13 @@ impl App {
 			self.draw_circle(p, Color::rgb(100, 100, 0));
 		}
 
+		// q_skill rendering
+		for p in pl.iter() {
+			if let Some(ref b) = p.q_skill {
+				self.draw_circle(b, Color::rgb(0, 0, 80));
+			}
+		}
+
 		// health bars
 		for p in pl.iter() {
 			self.draw_rect(p.center() - Vec2f::new(0., 12.), (p.health as f32 * 2. / 5., 2.), Color::rgb(244, 0, 0));
